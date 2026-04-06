@@ -9,13 +9,11 @@ graph_nodes = {
     'H': [('I', 2)],
     'I': [('E', 5), ('J', 3)],
 }
-
 def get_neighbors(v):
     if v in graph_nodes:
         return graph_nodes[v]
     else:
         return None
-
 def h(n):
     H_dist = {
         'A': 10,
@@ -29,9 +27,7 @@ def h(n):
         'I': 1,
         'J': 0
     }
-
     return H_dist[n]
-
 def aStarAlgo(start_node, stop_node):
     open_set = {start_node}  
     closed_set = set()
@@ -39,26 +35,20 @@ def aStarAlgo(start_node, stop_node):
     parents = {}
     g[start_node] = 0
     parents[start_node] = start_node
-
     while len(open_set) > 0:
         n = None
-
         for v in open_set:
             if n is None or g[v] + h(v) < g[n] + h(n):
                 n = v
-
         if n == stop_node:
-            # Reconstruct the path
             path = []
             while parents[n] != n:
                 path.append(n)
                 n = parents[n]
             path.append(start_node)
             path.reverse()
-
             print('Path found:', path)
             return path
-
         if graph_nodes[n] is None:
             pass
         else:
@@ -71,14 +61,11 @@ def aStarAlgo(start_node, stop_node):
                     if g[m] > g[n] + weight:
                         g[m] = g[n] + weight
                         parents[m] = n
-
                         if m in closed_set:
                             closed_set.remove(m)
                             open_set.add(m)
-
         open_set.remove(n)
         closed_set.add(n)
-
     print('Path does not exist!')
     return None
 aStarAlgo('A', 'J')
